@@ -1333,8 +1333,84 @@ ul {
 }
 
 /* ==========================================================================
-   RESPONSIVE BREAKPOINTS
-   1440px, 1024px, 768px, 480px, 375px
+   MOBILE APP PERSISTENT BOTTOM ACTION BAR
+   ========================================================================== */
+.mobile-bottom-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-color: rgba(7, 36, 98, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
+  padding: 10px 16px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+}
+
+.mobile-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mobile-bar-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-bar-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  line-height: 1;
+}
+
+.mobile-bar-currency {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-gold);
+}
+
+.mobile-bar-amount {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-gold);
+  line-height: 1;
+}
+
+.mobile-bar-unit {
+  font-size: 0.78rem;
+  color: #bfdbfe;
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.mobile-bar-tag {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.mobile-bar-btn {
+  padding: 10px 18px;
+  font-size: 0.92rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 10px rgba(255, 200, 59, 0.35);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS (OPTIMIZED FOR MOBILE APP EXPERIENCE)
+   1024px, 860px, 768px (Mobile App), 480px, 380px
    ========================================================================== */
 
 /* Tablet & Smaller Desktops (<= 1024px) */
@@ -1366,7 +1442,7 @@ ul {
   }
 }
 
-/* Mid-Tablet & Mobile Header Breakpoint (<= 860px) */
+/* Mid-Tablet & Header Breakpoint (<= 860px) */
 @media screen and (max-width: 860px) {
   .main-nav {
     display: none;
@@ -1379,103 +1455,36 @@ ul {
   .mobile-menu-toggle {
     display: flex;
   }
-
-  .hero-container {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 40px;
-  }
-
-  .hero-badge {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-description {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-cta-group {
-    justify-content: center;
-  }
-
-  .hero-mini-highlights {
-    justify-content: center;
-  }
-
-  .hero-visual-wrapper {
-    max-width: 440px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .trust-banner-card {
-    flex-wrap: wrap;
-    gap: 16px;
-    padding: 20px;
-    text-align: center;
-  }
-
-  .trust-divider {
-    display: none;
-  }
-
-  .trust-badge-icon {
-    display: none;
-  }
-
-  .contact-card {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
-
-  .contact-header {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .ready-cta-card {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    padding: 28px 24px;
-  }
 }
 
-/* Tablet (<= 768px) */
+/* ==========================================================================
+   MOBILE APPLICATION VIEWPORT (<= 768px)
+   Compact, app-like, scroll-reduced mobile experience
+   ========================================================================== */
 @media screen and (max-width: 768px) {
-  .hero-title {
-    font-size: 2.25rem;
-  }
-
-  .section-title {
-    font-size: 1.875rem;
-  }
-
-  .steps-flow-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .footer-top {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .footer-links {
-    justify-content: center;
-    gap: 20px;
-  }
-}
-
-/* Mobile Devices (<= 480px) */
-@media screen and (max-width: 480px) {
   :root {
-    --header-height: 68px;
+    --header-height: 62px;
+  }
+
+  body {
+    padding-bottom: 74px; /* Space for sticky bottom bar */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-bottom-bar {
+    display: block;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .container {
@@ -1483,17 +1492,499 @@ ul {
     padding-right: 16px;
   }
 
+  /* Header Mobile */
+  .brand-logo {
+    gap: 10px;
+  }
+
+  .logo-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+
+  .logo-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .brand-name {
+    font-size: 1.05rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.7rem;
+  }
+
+  /* Hero Section Mobile (No huge illustration, concise above-the-fold) */
   .hero-section {
-    padding-top: 36px;
-    padding-bottom: 48px;
+    padding-top: 24px;
+    padding-bottom: 28px;
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 0;
+  }
+
+  /* Hide massive illustration on mobile so user doesn't have to scroll */
+  .hero-visual-wrapper {
+    display: none;
+  }
+
+  .hero-badge {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 12px;
+    font-size: 0.75rem;
+    padding: 4px 12px;
   }
 
   .hero-title {
-    font-size: 1.875rem;
+    font-size: 1.85rem;
+    line-height: 1.2;
+    margin-bottom: 12px;
   }
 
   .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 18px;
+    max-width: 100%;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn-hero {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    flex: 1;
+    max-width: 220px;
+  }
+
+  .hero-price-pill {
+    padding: 11px 16px;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .hero-mini-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 10px;
+  }
+
+  .mini-highlight-item {
+    font-size: 0.78rem;
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  /* Features Section (2x2 Compact Grid) */
+  .features-section {
+    padding-top: 18px;
+    padding-bottom: 14px;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .feature-card {
+    padding: 14px 12px;
+    border-radius: var(--radius-md);
+    gap: 10px;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .feature-icon-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+  }
+
+  .feature-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .feature-title {
+    font-size: 0.92rem;
+    margin-bottom: 2px;
+  }
+
+  .feature-desc {
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  /* Customer Trust Banner (Compact Mobile Strip) */
+  .trust-banner-section {
+    padding-top: 6px;
+    padding-bottom: 16px;
+  }
+
+  .trust-banner-card {
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .trust-stat-group {
+    gap: 8px;
+  }
+
+  .trust-users-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .trust-users-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .trust-count {
+    font-size: 1.25rem;
+  }
+
+  .trust-label {
+    font-size: 0.82rem;
+  }
+
+  .trust-rating-group {
+    gap: 6px;
+  }
+
+  .star-rating {
+    font-size: 0.95rem;
+  }
+
+  .trust-subtext {
+    display: none;
+  }
+
+  .trust-divider,
+  .trust-badge-icon {
+    display: none;
+  }
+
+  /* About Section Mobile */
+  .about-section {
+    padding-top: 12px;
+    padding-bottom: 16px;
+  }
+
+  .about-card {
+    padding: 20px 16px;
+    border-radius: var(--radius-lg);
+  }
+
+  .about-badge {
+    margin-bottom: 8px;
+  }
+
+  .about-heading {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+
+  .about-text {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  /* Pricing & What We Need Mobile */
+  .pricing-need-section {
+    padding-top: 14px;
+    padding-bottom: 20px;
+  }
+
+  .dual-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pricing-card {
+    padding: 20px 16px;
+    border-radius: var(--radius-lg);
+  }
+
+  .card-header-block {
+    margin-bottom: 14px;
+  }
+
+  .card-heading {
+    font-size: 1.3rem;
+  }
+
+  .pricing-hero-badge {
+    padding: 14px 12px;
+    margin-bottom: 14px;
+    border-radius: var(--radius-md);
+  }
+
+  .pricing-rate .amount {
+    font-size: 2.5rem;
+  }
+
+  .pricing-rate .currency {
+    font-size: 1.4rem;
+  }
+
+  .pricing-hero-badge .unit {
+    font-size: 0.82rem;
+  }
+
+  .pricing-tiers-list {
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .tier-item {
+    font-size: 0.9rem;
+  }
+
+  .tier-price {
     font-size: 1rem;
+  }
+
+  .pricing-disclaimer {
+    margin-bottom: 14px;
+    font-size: 0.75rem;
+  }
+
+  /* What We Need Checklist (2-Column Compact Grid) */
+  .what-we-need-card {
+    padding: 20px 16px;
+    border-radius: var(--radius-lg);
+  }
+
+  .checklist-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 10px;
+    margin-bottom: 14px;
+  }
+
+  .checklist-item {
+    font-size: 0.82rem;
+    gap: 6px;
+  }
+
+  .check-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+  }
+
+  .checklist-item-full {
+    grid-column: span 2;
+  }
+
+  .info-alert-box {
+    padding: 12px 14px;
+    gap: 8px;
+    border-radius: var(--radius-sm);
+  }
+
+  .info-alert-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .info-alert-main {
+    font-size: 0.8rem;
+  }
+
+  .info-alert-sub {
+    font-size: 0.75rem;
+  }
+
+  /* How It Works (2x2 Step Grid) */
+  .how-it-works-section {
+    padding-top: 16px;
+    padding-bottom: 20px;
+  }
+
+  .section-title-wrap {
+    margin-bottom: 18px;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+
+  .section-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .steps-flow-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .step-card {
+    padding: 14px 10px;
+    border-radius: var(--radius-md);
+  }
+
+  .step-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 10px;
+  }
+
+  .step-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .step-badge {
+    width: 18px;
+    height: 18px;
+    font-size: 0.68rem;
+    bottom: -1px;
+    right: -1px;
+  }
+
+  .step-title {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+
+  .step-desc {
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .step-arrow {
+    display: none;
+  }
+
+  /* Ready to Start Card Mobile */
+  .ready-cta-card {
+    padding: 20px 16px;
+    border-radius: var(--radius-lg);
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .ready-card-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ready-card-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ready-card-title {
+    font-size: 1.25rem;
+  }
+
+  .ready-card-text {
+    font-size: 0.88rem;
+  }
+
+  /* Contact Section Mobile */
+  .contact-section {
+    padding-top: 8px;
+    padding-bottom: 24px;
+  }
+
+  .contact-card {
+    padding: 20px 16px;
+    border-radius: var(--radius-lg);
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .contact-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .contact-badge-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact-badge-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .contact-heading {
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+  }
+
+  .contact-text {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  /* Footer Mobile */
+  .site-footer {
+    padding-top: 24px;
+    padding-bottom: 20px;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 18px;
+  }
+
+  .footer-links {
+    justify-content: center;
+    gap: 14px;
+    font-size: 0.85rem;
+  }
+
+  .footer-bottom {
+    padding-top: 14px;
+  }
+
+  .footer-copyright {
+    font-size: 0.78rem;
+  }
+}
+
+/* ==========================================================================
+   EXTRA SMALL MOBILE (<= 380px)
+   ========================================================================== */
+@media screen and (max-width: 380px) {
+  .hero-title {
+    font-size: 1.6rem;
   }
 
   .hero-cta-group {
@@ -1504,53 +1995,17 @@ ul {
   .hero-cta-group .btn-hero,
   .hero-cta-group .hero-price-pill {
     width: 100%;
+    max-width: 100%;
     justify-content: center;
   }
 
-  .hero-mini-highlights {
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
+  .pricing-rate .amount {
+    font-size: 2.25rem;
   }
 
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .trust-stat-group {
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .trust-stat-text {
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-  }
-
-  .trust-count {
-    font-size: 1.625rem;
-  }
-
-  .trust-rating-group {
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .about-card {
-    padding: 24px 18px;
-  }
-
-  .about-heading {
-    font-size: 1.5rem;
-  }
-
-  .pricing-card {
-    padding: 24px 18px;
-  }
-
-  .what-we-need-card {
-    padding: 24px 18px;
+  .tier-pages {
+    min-width: 65px;
+    font-size: 0.85rem;
   }
 
   .checklist-grid {
@@ -1560,50 +2015,13 @@ ul {
   .checklist-item-full {
     grid-column: span 1;
   }
-
-  .steps-flow-container {
-    grid-template-columns: 1fr;
-  }
-
-  .ready-cta-card {
-    padding: 24px 16px;
-  }
-
-  .ready-card-title {
-    font-size: 1.3rem;
-  }
-
-  .contact-card {
-    padding: 28px 18px;
-  }
-
-  .contact-heading {
-    font-size: 1.375rem;
-  }
 }
 
-/* Small Mobile (<= 375px) */
-@media screen and (max-width: 375px) {
-  .hero-title {
-    font-size: 1.65rem;
-  }
-
-  .brand-name {
-    font-size: 1rem;
-  }
-
-  .brand-tagline {
-    font-size: 0.7rem;
-  }
-
-  .pricing-rate .amount {
-    font-size: 2.75rem;
-  }
-
-  .tier-pages {
-    min-width: 70px;
-    font-size: 0.9rem;
-  }
+/* Touch Active Feedback */
+button:active,
+.btn:active,
+.hero-price-pill:active {
+  transform: scale(0.97);
 }
 
 /* Reduced Motion Preference */

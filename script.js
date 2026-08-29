@@ -117,7 +117,7 @@ function initHeaderScroll() {
  */
 function initActiveNavLink() {
   const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.main-nav .nav-link');
+  const navLinks = document.querySelectorAll('.main-nav .nav-link, .mobile-nav-link');
 
   if (!sections.length || !navLinks.length) return;
 
